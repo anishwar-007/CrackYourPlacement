@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int fun(int ind, int buy, vector<int> prices,  vector<vector<int>> &dp){
+        if(ind == prices.size()) return 0;
+
+        if(dp[ind][buy] != -1) return dp[ind][buy];
+        if(buy){
+            return dp[ind][buy] = max( -prices[ind] + fun(ind + 1, 0, prices, dp), fun(ind+1, 1, prices, dp) );
+        }
+        else{
+           return dp[ind][buy] = max( prices[ind] + fun(ind+1, 1, prices, dp) , fun(ind+1, 0, prices, dp) );
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        // vector<vector<int>> dp(n+1, vector<int> (2, 0));
+        // return fun(0, 1, prices, dp);
+        vector<int > ahead(2,0), curr(2,0);
+        ahead[0] = 0; ahead[1] = 0;
+
+        for(int i=n-1;i>=0;i--){
+            for(int j=0;j<=1;j++){
+                if(j){
+                    curr[j] = max( -prices[i] + ahead[0], ahead[1] );
+                }
+                else{
+                   curr[j] = max(prices[i] + ahead[1], ahead[0] );
+                }
+            }
+            curr = ahead;
+        }
+        return ahead[1];
+    }
+};

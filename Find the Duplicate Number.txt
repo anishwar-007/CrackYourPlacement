@@ -1,0 +1,9 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+       vector<int> v(nums.size(),-1);
+       int ans  = -1;
+       for(auto it: nums) {if(v[it] != -1) ans = it; v[it] = 0;}
+        return ans;
+    }
+};
