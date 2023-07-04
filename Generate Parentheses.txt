@@ -1,0 +1,16 @@
+class Solution {
+public:
+    void fun(string s, int openPar, int closePar, vector<string> &ans, int n){
+        if(openPar == n && closePar == n) {
+            ans.push_back(s);
+            return;
+        }
+        if(openPar < n) fun(s + "(", openPar+1, closePar, ans, n);
+        if(closePar < openPar) fun(s + ")", openPar, closePar + 1, ans, n); 
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        fun("(", 1, 0, ans, n);
+        return ans;
+    }
+};
