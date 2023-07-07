@@ -1,0 +1,35 @@
+class Solution 
+{
+    public:
+    bool isPossible(int A[], int N, int M, int mid){
+        int val = 1, sum = 0;
+        for(int i = 0; i < N; i++){
+            if(A[i] > mid) return false;
+            
+            if(A[i] + sum > mid) {
+                val++;
+                sum = A[i];
+            }
+            else sum += A[i];
+        }
+        if(val > M) return false;
+        return true;
+    }
+    
+    int findPages(int A[], int N, int M) 
+    {
+        long long low = 0, high = 0, mid = 0, ans = -1;
+        if(M > N) return -1;
+        for(int i=0;i<N;i++) high += A[i];
+        while(low <= high){
+            mid = (low+high) >> 1;
+            if(isPossible(A,N,M,mid)){
+                ans = mid;
+                high = mid - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+        }
+    }
+};
