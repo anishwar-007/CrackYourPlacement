@@ -1,0 +1,11 @@
+/*You are required to complete below method */
+bool ispossible(Node* root,int ll,int rl){
+    if(root==NULL)return false;
+    if(ll>=rl)return true;
+    return ispossible(root->left,ll,root->data-1) || ispossible(root->right,root->data+1,rl);
+}
+bool isDeadEnd(Node *root)
+{
+    if(root==NULL)return false;
+    return ispossible(root,1,INT_MAX);
+}
