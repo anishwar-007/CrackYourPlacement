@@ -1,0 +1,35 @@
+void printKPathUtil(Node* root, vector<int>& path,
+                    unordered_map<int, int>& um, int k)
+{
+    if (!root)
+        return;
+ 
+    path.push_back(root->data);
+ 
+    printKPathUtil(root->left, path, um, k);
+ 
+    printKPathUtil(root->right, path, um, k);
+ 
+    int sum = 0;
+    for (int i = path.size() - 1; i >= 0; i--) {
+        sum += path[i];
+ 
+        // If the prefix sum equals k, print the path
+        if (sum == k)
+            printVector(path, i);
+ 
+        auto itr = um.find(sum - k);
+        if (itr != um.end())
+            printVector(path, itr->second);
+    }
+ 
+    path.pop_back();
+}
+ 
+// Utility function to print all the k-sum paths in the
+// binary tree
+void printKPath(Node* root, int k)
+{
+    vector<int> path; // to store the path
+    unordered_map<int, int> um; // to store the prefix sums
+    printKPat

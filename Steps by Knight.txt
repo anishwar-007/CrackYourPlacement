@@ -1,0 +1,24 @@
+int minStepToReachTarget(vector<int>&KnightPos,vector<int>&TargetPos,int n)
+    {
+        // Code here
+         vector<vector<int>> m(n, vector<int>(n, 0));
+    int x1 = KnightPos[0] - 1, y1 = KnightPos[1] - 1;
+    int x2 = TargetPos[0] - 1, y2 = TargetPos[1] - 1;
+    queue<pair<int, int>> q;
+    q.push({x1, y1});
+    int delx[8] = {+1, +1, -1, -1, +2, +2, -2, -2};
+    int dely[8] = {+2, -2, +2, -2, +1, -1, +1, -1};
+    while (!q.empty()) {
+        pair<int, int> front = q.front();
+        q.pop();
+        for (int i = 0; i < 8; i++) {
+            int x = front.first + delx[i];
+            int y = front.second + dely[i];
+            if (x >= 0 && x < n && y >= 0 && y < n && m[x][y] == 0) {
+                m[x][y] = 1 + m[front.first][front.second];  // Use the previous value
+                q.push({x, y});
+            }
+        }
+    }
+    return m[x2][y2];
+    }

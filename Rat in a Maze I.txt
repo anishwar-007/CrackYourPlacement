@@ -1,0 +1,27 @@
+class Solution{
+    public:
+    void fun(vector<vector<int>> &m, int row, int col, vector<string> &ans, string dym, int n){
+        if(row == n-1 && col == n-1){
+            ans.push_back(dym);
+            return;
+        }
+        
+        if(row < 0 || row > n-1 || col < 0 || col > n-1 || m[row][col] == 0) return;
+        
+        m[row][col] = 0;
+        fun(m, row+1, col, ans, dym + "D", n);
+        fun(m, row-1, col, ans, dym + "U", n);
+        fun(m, row, col+1, ans, dym + "R", n);
+        fun(m, row, col-1, ans, dym + "L", n);
+        
+        m[row][col] = 1;
+        dym.pop_back();
+    }
+    vector<string> findPath(vector<vector<int>> &m, int n) {
+        vector<string> ans;
+        string dym = "";
+        if(m[0][0] == 0 || m[n-1][n - 1] == 0) return ans;
+        fun(m, 0, 0, ans, dym, n);
+        return ans;
+    }
+};
