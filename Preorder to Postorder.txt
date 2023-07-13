@@ -1,0 +1,19 @@
+class Solution{
+public:
+    //Function that constructs BST from its preorder traversal.
+    Node* solver(int* start, int* end) {
+    if(start==end) return newNode(*start);
+    if(start>end) return NULL;
+    Node* head = newNode(*start);
+    int* ptr = start+1;
+    while(ptr<=end && *start>*ptr) {
+        ptr++;
+    }
+    head->left = solver(start+1, ptr-1); 
+    head->right = solver(ptr, end);
+}
+Node* post_order(int pre[], int size)
+{
+    return solver(pre, pre+size-1);
+}
+};

@@ -1,0 +1,23 @@
+class Solution{
+    public: 
+    Node*prev;
+    
+    void f(Node*r){
+        if(!r)return;
+        
+        f(r->right);
+        
+        if(prev){
+            r->right=prev;
+            prev->left=r;
+        }
+        prev=r;
+        f(r->left);
+    }    
+    Node * bToDLL(Node *r){
+        prev=NULL;
+        f(r);
+        prev->left=NULL;
+        return prev;
+    }
+};

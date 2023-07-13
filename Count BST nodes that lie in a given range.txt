@@ -1,0 +1,16 @@
+class Solution{
+public:
+    void fun(Node* root, int l, int h, int &ans){
+        if(!root) return;
+        
+        fun(root-> left, l , h, ans);
+        if(root->data >= l && root->data <= h) ans++;
+        fun(root-> right, l , h, ans);
+    }
+    int getCount(Node *root, int l, int h)
+    {
+      int ans = 0;
+      fun(root, l, h, ans);
+      return ans;
+    }
+};
