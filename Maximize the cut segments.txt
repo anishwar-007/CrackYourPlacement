@@ -1,0 +1,18 @@
+class Solution
+{
+    public:
+    int maximizeTheCuts(int n, int x, int y, int z)
+    {
+        vector<int> dp(n+1, -1);
+        int ans = fun(n, x, y, z, dp);
+        if(ans > 0) return ans;
+        return 0;
+    }
+     int fun(int len, int x, int y, int z, vector<int> &dp){
+        if(len < 0) return INT_MIN;
+        if(len == 0) return 0;
+        if(dp[len] != -1) return dp[len];
+        
+        return dp[len] = max( fun(len-x, x, y, z, dp) + 1, max(fun(len-y, x, y, z, dp) + 1 , fun(len-z, x, y, z, dp) + 1 ) );
+    }
+};
