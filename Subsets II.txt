@@ -1,0 +1,25 @@
+class Solution {
+    private:
+    void ans(int ind, vector<int> &v, vector<int> &arr, int N, vector<vector<int>> &V){
+        // if(ind == N){
+            V.push_back(v);
+            // return;
+        // }
+        for(int i = ind ; i < N ; i++ ){
+            if( i > ind && arr[i] == arr[i-1]) continue;
+            v.push_back(arr[i]);
+            ans(i+1,v , arr, N, V);
+            v.pop_back();
+        }
+        // ans(ind+1, v, arr, N, V);
+    }
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> V;
+        sort(nums.begin() , nums.end());
+        vector<int> v;
+        ans(0,v,nums,n,V);
+        return V;
+    }
+};

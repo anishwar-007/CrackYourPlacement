@@ -1,0 +1,25 @@
+class Solution {
+    private:
+void allSubseq(int ind, int target, vector<int> &arr, vector<vector<int>> &v, vector<int> ds ){
+  	if(target == 0){
+      v.push_back(ds);
+  		return;
+  	}
+    for(int i=ind; i < arr.size();i++){
+      if(i > ind && arr[i] == arr[i-1]) continue;
+      if(arr[i] > target) break;
+  	ds.push_back(arr[i]);
+  	allSubseq(i+1, target - arr[i],arr, v, ds);
+  	ds.pop_back();
+    }
+  }
+	
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+      vector<vector<int>> v;
+      sort(candidates.begin(), candidates.end());
+      vector<int> ds;
+      allSubseq(0 , target , candidates , v , ds); 
+      return v;  
+    }
+};

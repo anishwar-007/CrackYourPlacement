@@ -1,0 +1,17 @@
+class Solution{
+public:
+    bool fun(int ind, int inc, int arr[], vector<vector<int>> &dp, int N ,int sum){
+        if(ind == N) return false;
+        if(inc == sum-inc) return true;
+        if(dp[ind][inc] != -1) return dp[ind][inc];
+        
+        return dp[ind][inc] = fun(ind+1, inc+arr[ind], arr, dp, N, sum) || fun(ind+1, inc, arr, dp, N, sum);
+    }
+    int equalPartition(int N, int arr[])
+    {
+        int sum = 0;
+        for(int i=0;i<N;i++) sum += arr[i];
+        vector<vector<int>> dp(N+1, vector<int>(sum + 1, -1));
+        return fun(0, 0, arr, dp, N, sum);
+    }
+};

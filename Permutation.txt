@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> perm;
+        fun(0,perm,ans,nums);
+        return ans;
+    }
+    void fun(int ind, vector<int> &perm,  vector<vector<int>> &ans, vector<int> &nums){
+        if(perm.size() == nums.size()){
+            ans.push_back(perm);
+            return;
+        }
+        for(int i=0; i < nums.size() ; i++){
+            if (find(perm.begin(), perm.end(), nums[i]) == perm.end()) {
+            perm.push_back(nums[i]);
+            fun(ind+1, perm, ans, nums);
+            perm.pop_back();
+            }
+        }
+    }
+};
