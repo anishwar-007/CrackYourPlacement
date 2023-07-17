@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int max_cnt = 0;
+
+    int recursion(vector<int>& nums1, vector<int>& nums2, int i, int j, vector<vector<int>>& memo) {
+        if (i < 0 || j < 0) return 0;
+        if (memo[i][j] != -1) return memo[i][j];
+        int ans = 0;
+        if (nums1[i] == nums2[j])
+            ans = 1 + recursion(nums1, nums2, i - 1, j - 1, memo);
+        int v1 = recursion(nums1, nums2, i - 1, j, memo);
+        int v2 = recursion(nums1, nums2, i, j - 1, memo);
+        max_cnt = max(max_cnt, max(ans, max(v1,v2)));
+        memo[i][j] = ans;
+        return ans;
+    }
+
+    int findLength(vector<int>& nums1, vector<int>& nums2) {
+        int m = nums1.size();
+        int n = nums2.size();
+        vector<vector<int>> memo(m, vector<int>(n, -1));
+
+        recursion(nums1, nums2, m - 1, n - 1, memo);
+
+        return max_cnt;
+    }
+};

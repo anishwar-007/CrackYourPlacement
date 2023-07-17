@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int trap(vector<int>& v) {
+        int l = 0, r = v.size()-1, left_max = 0, right_max = 0;
+        int res = 0;
+        while( l <= r){
+            if(v[l] < v[r]){
+                if(v[l] <= left_max) res += (left_max - v[l]);
+                else left_max = v[l];
+                l++;
+            }
+            else{
+                if(v[r] <= right_max) res += (right_max - v[r]);
+                else right_max = v[r];
+                r--;
+            }
+        }
+            return res;
+    }
+};
